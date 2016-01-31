@@ -3,6 +3,7 @@
 module.exports = [
   {
     tableName: 'first',
+    timestamps: true,
     build: function (table) {
       table.increments('id').primary();
       table.string('content');
@@ -17,6 +18,7 @@ module.exports = [
   {
     tableName: 'second',
     deps: ['first'],
+    timestamps: false,
     build: function (table) {
       table.increments('id').primary();
       table.string('content');
@@ -25,6 +27,20 @@ module.exports = [
       return knex('second').insert([
         { content: 'second-foo' },
         { content: 'second-bar' }
+      ]);
+    }
+  },
+  {
+    tableName: 'third',
+    timestamps: true,
+    build: function (table) {
+      table.increments('id').primary();
+      table.string('content');
+    },
+    populate: function (knex) {
+      return knex('third').insert([
+        { content: 'third-foo' },
+        { content: 'third-bar' }
       ]);
     }
   }

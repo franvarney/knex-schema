@@ -64,4 +64,40 @@ describe('Resolver', function () {
       ]);
     });
   });
+
+  describe('given schema with engine option', function () {
+    beforeEach(function () {
+      schemas = [
+        { tableName: 'a', engine: 'InnoDB' },
+        { tableName: 'c' }
+      ];
+
+      resolver = new Resolver(schemas);
+    });
+
+    it('should set engine', function () {
+      expect(resolver.resolve()).to.eql([
+        { tableName: 'a', engine: 'InnoDB' },
+        { tableName: 'c' },
+      ]);
+    });
+  });
+
+  describe('given schema with timestamps option', function () {
+    beforeEach(function () {
+      schemas = [
+        { tableName: 'a', timestamps: true },
+        { tableName: 'c' }
+      ];
+
+      resolver = new Resolver(schemas);
+    });
+
+    it('should set engine', function () {
+      expect(resolver.resolve()).to.eql([
+        { tableName: 'a',  timestamps: true },
+        { tableName: 'c' },
+      ]);
+    });
+  });
 });

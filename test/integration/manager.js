@@ -50,8 +50,15 @@ describe('Manager', function () {
     })
     .then(function (rows) {
       expect(rows).to.eql([
-        { id: 1, content: 'second-foo', created_at: null, updated_at: null },
-        { id: 2, content: 'second-bar', created_at: null, updated_at: null },
+        { id: 1, content: 'second-foo' },
+        { id: 2, content: 'second-bar' },
+      ]);
+      return manager.knex('third').select();
+    })
+    .then(function (rows) {
+      expect(rows).to.eql([
+        { id: 1, content: 'third-foo', created_at: null, updated_at: null },
+        { id: 2, content: 'third-bar', created_at: null, updated_at: null },
       ]);
       done();
     })
